@@ -1,28 +1,49 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import Multibar from './components/Multibar';
 import './App.css';
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
-  }
+	loading() {
+		return new Promise(resolve => setTimeout(resolve, 1000));
+	}
+
+	componentDidMount() {
+		this.loading().then(() => {
+			const loading = document.getElementById('loading');
+			if (loading) {
+				loading.classList.add('content-available');
+				setTimeout(() => {
+					loading.outerHTML = '';
+				}, 500);
+			}
+		});
+	}
+
+	render() {
+		const values = [
+			{
+				title: 'Data1',
+				left: { color: '#007cff', value: 48 },
+				right: { color: '#ffe944', value: 240 }
+			},
+			{
+				title: 'Data2',
+				left: { color: '#007cff', value: 123 },
+				right: { color: '#ffe944', value: 123 }
+			},
+			{
+				title: 'Data3',
+				left: { color: '#007cff', value: 10 },
+				right: { color: '#a1e104', value: 123 }
+			}
+		];
+		return (
+			<div className="App">
+				<h3>Charts</h3>
+				<Multibar values={values} />
+			</div>
+		);
+	}
 }
 
 export default App;
