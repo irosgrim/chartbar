@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Multibar from './components/Multibar';
-import './App.css';
+import './components/App.css';
 
 class App extends Component {
 	loading() {
